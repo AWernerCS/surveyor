@@ -10,11 +10,15 @@
 <table class="table">
 
     <tr>
-        <th>Survey</th>
+        <th>Survey Question</th>
+        <th>Date Added</th>
+        <th>Open?</th>
     </tr>
 
     <tr th:each="survey : ${surveys}">
         <td th:text="${survey.question}"></td>
+        <td th:text="${survey.dateAdded}"></td>
+        <td th:text="${survey.isOpen}"></td>
     </tr>
 
 </table>

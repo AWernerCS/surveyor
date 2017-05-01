@@ -1,12 +1,9 @@
 package com.awernercs.surveyor.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * Created by Amanda on 4/30/2017.
@@ -17,7 +14,9 @@ public class Survey {
     @GeneratedValue
     private int id;
 
+    // 400 = StrawPoll Max Length
     @NotNull
+    @Size(min=1, max=400)
     private String question;
 
     private Date dateAdded;
@@ -26,13 +25,9 @@ public class Survey {
 
     private String strawPollLink;
 
-    //@NotNull
-    //@Size(min=1, max=10)
-    private HashMap<String, Integer> options = new HashMap<String, Integer>();
 
     public Survey(String question) {
         this.question = question;
-        System.out.print("In the Survey Class adding a survey.");
     }
 
     public Survey() {}
@@ -52,7 +47,4 @@ public class Survey {
 
     public boolean getIsOpen() { return isOpen; }
     public void setIsOpen( boolean anIsOpen ) { this.isOpen = anIsOpen; }
-
-    public HashMap<String, Integer> getOptions() { return options; }
-    public void setOptions(HashMap<String, Integer> anOptionList) {this.options = anOptionList; }
 }

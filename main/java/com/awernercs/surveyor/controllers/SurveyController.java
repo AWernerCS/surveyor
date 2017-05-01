@@ -32,13 +32,13 @@ public class SurveyController {
 
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayAddCheeseForm(Model model) {
+    public String displayAddSurveyForm(Model model) {
         model.addAttribute(new Survey());
         return "survey/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@ModelAttribute @Valid Survey newSurvey,
+    public String processAddSurveyForm(@ModelAttribute @Valid Survey newSurvey,
                                        Errors errors,
                                        Model model) {
         if (errors.hasErrors()) {
