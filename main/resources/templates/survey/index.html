@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${surveys} and ${surveys.size()}">There is no data. :(</p>
+
+<table class="table">
+
+    <tr>
+        <th>Survey</th>
+    </tr>
+
+    <tr th:each="survey : ${surveys}">
+        <td th:text="${survey.question}"></td>
+    </tr>
+
+</table>
+
+</body>
+</html>
