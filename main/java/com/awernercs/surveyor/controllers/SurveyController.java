@@ -31,7 +31,6 @@ public class SurveyController {
     // Request path: /survey
     @RequestMapping(value = "")
     public String index(Model model) {
-        System.out.print("In the Survey Controller controlling stuff.");
         model.addAttribute("surveys", surveyDao.findAll());
         return "survey/index";
     }
