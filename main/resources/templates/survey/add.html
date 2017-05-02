@@ -11,6 +11,12 @@
         <span th:errors="*{question}" class="error"></span>
     </div>
 
+    <div class="form-group" th:each="surveyOption : *{surveyOptions}">
+        <label th:for="surveyOption">Survey Option</label>
+        <input class="form-control" type="text" th:value="${surveyOption.optionText}" id="surveyOption" name="surveyOption" />
+        <span th:errors="*{surveyOptions}" class="error"></span>
+    </div>
+
     <input type="submit" value="Add Survey" />
 </form>
 

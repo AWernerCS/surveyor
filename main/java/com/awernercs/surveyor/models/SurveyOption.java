@@ -17,6 +17,9 @@ public class SurveyOption {
     @Size(min=1, max=200)
     private String optionText;
 
+    @ManyToOne
+    private Survey survey;
+
     public SurveyOption(String anOptionText) { this.optionText = anOptionText; }
     public SurveyOption() {}
 
@@ -24,4 +27,7 @@ public class SurveyOption {
 
     public String getOptionText() { return optionText; }
     public void setOptionText(String anOptionText) { this.optionText = anOptionText; }
+
+    public Survey getSurvey() { return survey; }
+    public void setSurvey(Survey survey) { this.survey = survey; }
 }
