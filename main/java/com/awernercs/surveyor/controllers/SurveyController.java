@@ -4,6 +4,7 @@ import com.awernercs.surveyor.models.Survey;
 import com.awernercs.surveyor.models.SurveyOption;
 import com.awernercs.surveyor.models.data.SurveyDAO;
 import com.awernercs.surveyor.models.data.SurveyOptionDAO;
+import org.hibernate.annotations.Cascade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.CascadeType;
 import javax.validation.Valid;
 
 /**
@@ -45,10 +47,12 @@ public class SurveyController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddSurveyForm(@ModelAttribute @Valid Survey newSurvey,
                                        Errors errors,
-                                       @RequestParam String surveyOptionOne,
+                                       @RequestParam String surveyOption0, @RequestParam String surveyOption1,
+                                       @RequestParam String surveyOption2, @RequestParam String surveyOption3,
+                                       @RequestParam String surveyOption4, @RequestParam String surveyOption5,
+                                       @RequestParam String surveyOption6, @RequestParam String surveyOption7,
+                                       @RequestParam String surveyOption8, @RequestParam String surveyOption9,
                                        Model model) {
-        SurveyOption option = new SurveyOption(surveyOptionOne);
-        surveyOptionDao.save(option);
 
         if (errors.hasErrors()) {
             return "survey/add";
@@ -56,7 +60,18 @@ public class SurveyController {
 
         newSurvey.setIsOpen(true);
         newSurvey.setDateAdded();
-        newSurvey.addSurveyOption(surveyOptionDao.findOne(option.getId()));
+
+        // Set the new survey options.
+        newSurvey.getSurveyOptions().get(0).setOptionText(surveyOption0);
+        newSurvey.getSurveyOptions().get(1).setOptionText(surveyOption1);
+        newSurvey.getSurveyOptions().get(2).setOptionText(surveyOption2);
+        newSurvey.getSurveyOptions().get(3).setOptionText(surveyOption3);
+        newSurvey.getSurveyOptions().get(4).setOptionText(surveyOption4);
+        newSurvey.getSurveyOptions().get(5).setOptionText(surveyOption5);
+        newSurvey.getSurveyOptions().get(6).setOptionText(surveyOption6);
+        newSurvey.getSurveyOptions().get(7).setOptionText(surveyOption7);
+        newSurvey.getSurveyOptions().get(8).setOptionText(surveyOption8);
+        newSurvey.getSurveyOptions().get(9).setOptionText(surveyOption9);
 
         surveyDao.save(newSurvey);
         return "redirect:";
