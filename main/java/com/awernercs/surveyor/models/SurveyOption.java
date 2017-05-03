@@ -14,7 +14,7 @@ public class SurveyOption {
     private int id;
 
     @NotNull
-    @Size(min=1, max=200)
+    //@Size(min=1, max=200)
     private String optionText;
 
     @ManyToOne

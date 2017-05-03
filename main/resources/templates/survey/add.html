@@ -12,10 +12,9 @@
     </div>
 
     <div class="form-group" th:each="surveyOption,iterstat : *{surveyOptions}">
-        <label th:for="surveyOption">Survey Option</label>
-        <input class="form-control" type="text" th:value="${surveyOption.optionText}" th:id="'surveyOption' + ${iterstat.index}" name="'surveyOption' + ${iterstat.index}" />
-        <span th:errors="*{surveyOptions}" class="error"></span>
+        <input type="text" name="surveyOptionValues" th:value="${surveyOption.optionText}" th:id="${surveyOption.id}" />
     </div>
+
 
     <input type="submit" value="Add Survey" />
 </form>

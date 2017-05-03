@@ -27,7 +27,7 @@ public class Survey {
 
     private String strawPollLink;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "survey_id")
     public List<SurveyOption> surveyOptions = new ArrayList();
 
