@@ -27,6 +27,8 @@ public class Survey {
 
     private String strawPollLink;
 
+    private Strawpoll strawHolder;
+
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "survey_id")
     public List<SurveyOption> surveyOptions = new ArrayList();
@@ -46,8 +48,8 @@ public class Survey {
     public void setDateAdded() { this.dateAdded = new Date(); }
 
     public String getStrawPollLink() { return strawPollLink; }
-    public void setStrawPollLink() {
-        // insert StrawPoll API Stuff Here
+    public void setStrawPollLink(long strawPollID ) {
+        this.strawPollLink = "http://www.strawpoll.me/" + Long.toString(strawPollID);
     }
 
     public String getQuestion() { return question; }
@@ -62,6 +64,9 @@ public class Survey {
     public void addSurveyOption(SurveyOption option) {
         this.surveyOptions.add(option);
     }
+
+    public Strawpoll getStrawHolder() { return strawHolder; }
+    public void setStrawHolder (Strawpoll strawToBeHeld) { this.strawHolder = strawToBeHeld; }
 
     // Populates the Survey Option List with 10 blank options. This helps for
     // looping through the list in the HTML code.
