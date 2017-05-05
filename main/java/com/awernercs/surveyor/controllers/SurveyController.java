@@ -5,9 +5,13 @@ import com.awernercs.surveyor.models.SurveyOption;
 import com.awernercs.surveyor.models.Strawpoll;
 import com.awernercs.surveyor.models.data.SurveyDAO;
 import com.awernercs.surveyor.models.data.SurveyOptionDAO;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -58,22 +62,20 @@ public class SurveyController {
             newSurvey.surveyOptions.set(i, new SurveyOption(surveyOptionValues[i]));
         }
 
-        Strawpoll newStraw = new Strawpoll();
-        newStraw.setTitle(newSurvey.getQuestion());
-        newStraw.setOptions(surveyOptionValues);
-        newStraw.setMulti(true);
+        newSurvey.setCaptcha(false);
+        newSurvey.setMulti(false);
+        newSurvey.setOptions(surveyOptionValues);
 
         // Http Entity code: https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/HttpEntity.html
         HttpHeaders headers = new HttpHeaders();
         headers.set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36");
-        HttpEntity<Strawpoll> entity = new HttpEntity<Strawpoll>(newStraw, headers);
-
+        HttpEntity<Survey> entity = new HttpEntity<Survey>(newSurvey, headers);
         RestTemplate restTemplate = new RestTemplate();
-        Strawpoll secondStraw = restTemplate.postForObject("https://strawpoll.me/api/v2/polls", entity, Strawpoll.class);
+        Survey tempSurvey = restTemplate.postForObject("https://strawpoll.me/api/v2/polls", entity, Survey.class);
 
         newSurvey.setIsOpen(true);
         newSurvey.setDateAdded();
-        newSurvey.setStrawHolder(secondStraw);
+        newSurvey.setStrawpollId(tempSurvey.getStrawpollId());
 
         surveyDao.save(newSurvey);
         return "redirect:";
