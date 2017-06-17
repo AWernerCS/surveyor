@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 
@@ -58,6 +59,8 @@ public class SurveyController {
 
         newSurvey.setIsOpen(true);
         newSurvey.setDateAdded();
+
+        newSurvey.createStrawpoll();
 
         surveyDao.save(newSurvey);
         return "redirect:";
