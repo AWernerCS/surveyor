@@ -122,6 +122,6 @@ public class Survey {
 
         Survey responsePoll = restTemplate.postForObject("https://www.strawpoll.me/api/v2/polls", request, Survey.class);
         System.out.println("The ID is: " + responsePoll.getSpID());
-        spID = responsePoll.getSpID();
+        spID = responsePoll.getSpID(); // test
     }
 }
