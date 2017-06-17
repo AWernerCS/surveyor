@@ -116,12 +116,11 @@ public class Survey {
         headers.add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
 
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
         HttpEntity<Survey> request = new HttpEntity<Survey>(Survey.this, headers);
 
         Survey responsePoll = restTemplate.postForObject("https://www.strawpoll.me/api/v2/polls", request, Survey.class);
         System.out.println("The ID is: " + responsePoll.getSpID());
-        spID = responsePoll.getSpID(); // test
+        spID = responsePoll.getSpID();
     }
 }
