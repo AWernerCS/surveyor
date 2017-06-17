@@ -16,6 +16,7 @@
         <th>Option 1</th>
         <th>Option 2</th>
         <th>Option 3</th>
+        <th>Strawpoll Information</th>
     </tr>
 
     <tr th:each="survey : ${surveys}">
@@ -25,6 +26,7 @@
         <td th:text="${survey.surveyOptions.get(0).getOptionText()}"></td>
         <td th:text="${survey.surveyOptions.get(1).getOptionText()}"></td>
         <td th:text="${survey.surveyOptions.get(2).getOptionText()}"></td>
+        <td th:text="${survey.strawHolder}"></td>
     </tr>
 
 </table>
