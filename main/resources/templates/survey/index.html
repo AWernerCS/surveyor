@@ -13,20 +13,16 @@
         <th>Survey Question</th>
         <th>Date Added</th>
         <th>Open?</th>
-        <th>Option 1</th>
-        <th>Option 2</th>
-        <th>Option 3</th>
-        <th>Strawpoll ID</th>
+        <th>Strawpoll</th>
+        <th>Strawpoll</th>
     </tr>
 
     <tr th:each="survey : ${surveys}">
         <td th:text="${survey.question}"></td>
         <td th:text="${survey.dateAdded}"></td>
         <td th:text="${survey.isOpen}"></td>
-        <td th:text="${survey.surveyOptions.get(0).getOptionText()}"></td>
-        <td th:text="${survey.surveyOptions.get(1).getOptionText()}"></td>
-        <td th:text="${survey.surveyOptions.get(2).getOptionText()}"></td>
-        <td th:text="${survey.spID}"></td>
+        <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID}}"><p th:text="Vote"></p></a></td>
+        <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID} + '/r'}"><p th:text="Results"></p></a></td>
     </tr>
 
 </table>

@@ -32,9 +32,9 @@ public class Survey {
     private Date dateAdded;
     private boolean isOpen;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "survey_id")
-    public List<SurveyOption> surveyOptions = new ArrayList();
+    //@OneToMany(cascade = {CascadeType.ALL})
+    //@JoinColumn(name = "survey_id")
+    //public List<SurveyOption> surveyOptions = new ArrayList();
 
     @JsonProperty("id") // Used by Strawpoll
     private String spID;
@@ -52,13 +52,12 @@ public class Survey {
     @JsonProperty("captcha")
     private boolean captcha = false;
 
-    public Survey(String question) {
+    public Survey(String question, String[] spOptions) {
         this.question = question;
-        this.surveyOptionPop();
+        this.spOptions = spOptions;
     }
 
     public Survey() {
-        this.surveyOptionPop();
     }
 
     public long getId() { return id; }
@@ -71,9 +70,6 @@ public class Survey {
 
     public boolean getIsOpen() { return isOpen; }
     public void setIsOpen( boolean anIsOpen ) { this.isOpen = anIsOpen; }
-
-    public List<SurveyOption> getSurveyOptions() { return surveyOptions; }
-    public void setSurveyOptions( List<SurveyOption> newSurveyOptions ) { this.surveyOptions = newSurveyOptions; }
 
     public String getSpID() { return spID; }
     public void setSpID(String spID) { this.spID = spID; }
@@ -93,34 +89,15 @@ public class Survey {
     public boolean isCaptcha() { return captcha; }
     public void setCaptcha(boolean captcha) { this.captcha = captcha; }
 
-    public void addSurveyOption(SurveyOption option) {
-        this.surveyOptions.add(option);
-    }
-
-    // Populates the Survey Option List with 10 blank options. This helps for
-    // looping through the list in the HTML code.
-    private void surveyOptionPop() {
-        for (int i = 0; i < 10; i++){
-            surveyOptions.add(new SurveyOption());
-        }
-    }
-
     public void createStrawpoll() {
-
-        for (int i = 0; i < surveyOptions.size(); i++){
-            spOptions[i] = surveyOptions.get(i).getOptionText();
-        }
-
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
         headers.add("Content-Type", "application/json");
         headers.add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
 
         RestTemplate restTemplate = new RestTemplate();
-
         HttpEntity<Survey> request = new HttpEntity<Survey>(Survey.this, headers);
 
         Survey responsePoll = restTemplate.postForObject("https://www.strawpoll.me/api/v2/polls", request, Survey.class);
-        System.out.println("The ID is: " + responsePoll.getSpID());
         spID = responsePoll.getSpID();
     }
 }

@@ -1,7 +1,6 @@
 package com.awernercs.surveyor.controllers;
 
 import com.awernercs.surveyor.models.Survey;
-import com.awernercs.surveyor.models.SurveyOption;
 import com.awernercs.surveyor.models.data.SurveyDAO;
 import com.awernercs.surveyor.models.data.SurveyOptionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 
@@ -45,7 +43,7 @@ public class SurveyController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddSurveyForm(@ModelAttribute @Valid Survey newSurvey,
-                                       @RequestParam String[] surveyOptionValues,
+                                       @RequestParam("myTest[]") String surveyOptions[],
                                        Errors errors,
                                        Model model) {
 
@@ -53,12 +51,9 @@ public class SurveyController {
             return "survey/add";
         }
 
-        for (int i = 0; i < 10; i++){
-            newSurvey.surveyOptions.set(i, new SurveyOption(surveyOptionValues[i]));
-        }
-
         newSurvey.setIsOpen(true);
         newSurvey.setDateAdded();
+        newSurvey.setSpOptions(surveyOptions);
 
         newSurvey.createStrawpoll();
 
