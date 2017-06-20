@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${teams} and ${teams.size()}">You currently do not have any teams added. Would you like to add one now?</p><br /><br />
+
+<form method="post">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Email Address</th>
+            <th>Teams</th>
+            <th>Delete?</th>
+        </tr>
+        <tr th:each="teamMember : ${teamMembers}">
+            <td th:text="${teamMember.name}"></td>
+            <td th:text="${teamMember.email}"></td>
+            <td><p th:each="team : ${teamMember.teams}" th:text="${team.name}">, </p></td>
+            <td><input type="checkbox" name="teamMemberIds[]" th:value="${teamMember.id}"/></td>
+        </tr>
+    </table>
+    <input type="submit" value="Archive Records"/>
+</form>
+
+</body>
+</html>

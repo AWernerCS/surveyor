@@ -3,14 +3,24 @@
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <title>Surveyor</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" th:href="@{/css/styles.css}"/>
+
+    <!-- Include Twitter Bootstrap and jQuery: -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" th:src="@{//ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js}"/>
+    <script type="text/javascript" src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}" />
+
+    <!-- Include the plugin's CSS and JS: -->
+    <script type="text/javascript" src="/js/bootstrap-multiselect.js" />
+    <link rel="stylesheet" href="/css/bootstrap-multiselect.css" th:href="@{/css/bootstrap-multiselect.css}" type="text/css"/>
+
 </head>
 <body>
 <nav th:fragment="navigation">
     <a href="/survey">Home</a>
-    <a href="/survey/add">Add</a>
-    <a href="/survey/remove">Remove</a>
+    <a href="/survey/addsurvey">Add Survey</a>
+    <a href="/survey/archivedsurveys">Archived Surveys</a>
+    <a href="/survey/teams">Manage Teams</a>
 </nav>
 </body>
 </html>

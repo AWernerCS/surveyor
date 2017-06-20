@@ -10,12 +10,25 @@
 
 <form method="post" style="max-width:600px;" th:object="${survey}">
     <div class="form-group">
-        <label th:for="question">Question</label>
+        <label th:for="question">Question: </label>
         <input class="form-control" th:field="*{question}" />
-        <span th:errors="*{question}" class="error"></span> <br />
+        <span th:errors="*{question}" class="error"></span> <br /><br />
+
+        <label th:for="spDupCheck">Duplication Checking: </label>
+        <select th:field="*{spDupCheck}" >
+            <option th:value="disabled">None</option>
+            <option th:value="normal">IP-based</option>
+            <option th:value="permissive">Cookie-based</option>
+        </select>
+        <span th:errors="*{spDupCheck}" class="error"></span> <br /><br />
+
+        <label th:for="spMulti">Allow Multiple Answers? </label>
+        <select th:field="*{spMulti}">
+            <option th:value="true">Yes</option>
+            <option th:value="false">No</option>
+        </select><br /><br />
 
         <div class="container1">
-            <!-- th:field="*{spOptions} -->
             <div><input type="text" name="myTest[]"/><button class="add_form_field">Add Survey Option</button><br/><input type="text" name="myTest[]" /><button class="donotdelete" disabled="disabled">Delete</button></div>
         </div>
 

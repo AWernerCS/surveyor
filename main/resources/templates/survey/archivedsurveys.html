@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${surveys} and ${surveys.size()}">There is no data. :(</p>
+
+<table class="table">
+    <tr>
+        <th>Survey Question</th>
+        <th>Date Added</th>
+        <th>Date Archived</th>
+        <th>Strawpoll</th>
+        <th>Strawpoll</th>
+    </tr>
+    <tr th:each="survey : ${surveys}">
+        <td th:text="${survey.question}"></td>
+        <td th:text="${survey.dateAdded}"></td>
+        <td th:text="${survey.dateArchived}"></td>
+        <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID}}"><p th:text="Vote"></p></a></td>
+        <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID} + '/r'}"><p th:text="Results"></p></a></td>
+    </tr>
+</table>
+
+</body>
+</html>

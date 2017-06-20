@@ -7,25 +7,25 @@
 
 <p th:unless="${surveys} and ${surveys.size()}">There is no data. :(</p>
 
-<table class="table">
-
-    <tr>
-        <th>Survey Question</th>
-        <th>Date Added</th>
-        <th>Open?</th>
-        <th>Strawpoll</th>
-        <th>Strawpoll</th>
-    </tr>
-
-    <tr th:each="survey : ${surveys}">
-        <td th:text="${survey.question}"></td>
-        <td th:text="${survey.dateAdded}"></td>
-        <td th:text="${survey.isOpen}"></td>
-        <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID}}"><p th:text="Vote"></p></a></td>
-        <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID} + '/r'}"><p th:text="Results"></p></a></td>
-    </tr>
-
-</table>
+<form method="post">
+    <table class="table">
+        <tr>
+            <th>Survey Question</th>
+            <th>Date Added</th>
+            <th>Strawpoll</th>
+            <th>Strawpoll</th>
+            <th>Archive</th>
+        </tr>
+        <tr th:each="survey : ${surveys}">
+            <td th:text="${survey.question}"></td>
+            <td th:text="${survey.dateAdded}"></td>
+            <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID}}"><p th:text="Vote"></p></a></td>
+            <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID} + '/r'}"><p th:text="Results"></p></a></td>
+            <td><input type="checkbox" name="surveyIds[]" th:value="${survey.id}"/></td>
+        </tr>
+    </table>
+    <input type="submit" value="Archive Records"/>
+</form>
 
 </body>
 </html>

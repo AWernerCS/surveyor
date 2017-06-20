@@ -2,27 +2,20 @@ package com.awernercs.surveyor.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
-/**
- * Created by Amanda on 4/30/2017.
- */
 @Entity
 public class Survey {
     @Id
     @GeneratedValue
     @JsonProperty ("ignore")
-    private long id;
+    private int id;
 
     // 400 = StrawPoll Max Length
     @NotNull
@@ -30,11 +23,8 @@ public class Survey {
     @JsonProperty ("title") // Used by Strawpoll
     private String question;
     private Date dateAdded;
-    private boolean isOpen;
-
-    //@OneToMany(cascade = {CascadeType.ALL})
-    //@JoinColumn(name = "survey_id")
-    //public List<SurveyOption> surveyOptions = new ArrayList();
+    private boolean isArchived;
+    private Date dateArchived;
 
     @JsonProperty("id") // Used by Strawpoll
     private String spID;
@@ -48,7 +38,7 @@ public class Survey {
     @JsonProperty("multi")
     private boolean spMulti = false;
     @JsonProperty("dupcheck")
-    private String spDupcheck = "normal";
+    private String spDupCheck = "";
     @JsonProperty("captcha")
     private boolean captcha = false;
 
@@ -57,8 +47,7 @@ public class Survey {
         this.spOptions = spOptions;
     }
 
-    public Survey() {
-    }
+    public Survey() { }
 
     public long getId() { return id; }
 
@@ -68,8 +57,11 @@ public class Survey {
     public String getQuestion() { return question; }
     public void setQuestion(String aQuestion){ this.question = aQuestion; }
 
-    public boolean getIsOpen() { return isOpen; }
-    public void setIsOpen( boolean anIsOpen ) { this.isOpen = anIsOpen; }
+    public boolean getIsArchived() { return isArchived; }
+    public void setIsArchived( boolean anIsArchived ) { this.isArchived = anIsArchived; }
+
+    public Date getDateArchived() { return dateArchived; }
+    public void setDateArchived() { this.dateArchived = new Date(); }
 
     public String getSpID() { return spID; }
     public void setSpID(String spID) { this.spID = spID; }
@@ -83,8 +75,8 @@ public class Survey {
     public boolean isSpMulti() { return spMulti; }
     public void setSpMulti(boolean spMulti) { this.spMulti = spMulti; }
 
-    public String getSpDupcheck() { return spDupcheck; }
-    public void setSpDupcheck(String spDupcheck) { this.spDupcheck = spDupcheck; }
+    public String getSpDupCheck() { return spDupCheck; }
+    public void setSpDupCheck(String spDupCheck) { this.spDupCheck = spDupCheck; }
 
     public boolean isCaptcha() { return captcha; }
     public void setCaptcha(boolean captcha) { this.captcha = captcha; }
