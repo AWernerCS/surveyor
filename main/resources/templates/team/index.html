@@ -19,7 +19,7 @@
             <th>Delete?</th>
         </tr>
         <tr th:each="team : ${teams}">
-            <td th:text="${team.name}"></td>
+            <td><a th:href="@{/team/} + ${team.id}" th:text="${team.name}" /></td>
             <td><span th:each="teamMember, iterStat : ${team.teamMembers}" th:text="!${iterStat.last} ? ${teamMember.name} + ', ': ${teamMember.name}" /></td>
             <td><input type="checkbox" name="teamIds[]" th:value="${team.id}"/></td>
         </tr>
