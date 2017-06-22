@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,13 +15,13 @@ public class Team {
     private int id;
 
     @ManyToMany
-    private List<Team> teamMembers;
+    private List<TeamMember> teamMembers = new ArrayList<>();
 
     private String name;
 
     public int getId() { return id; }
 
-    public List<Team> getTeamMembers() { return teamMembers; }
+    public List<TeamMember> getTeamMembers() { return teamMembers; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

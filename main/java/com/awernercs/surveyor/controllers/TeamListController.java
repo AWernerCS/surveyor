@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("survey/teams")
+@RequestMapping("team")
 public class TeamListController {
 
     @Autowired
@@ -19,14 +19,14 @@ public class TeamListController {
     private Errors errors;
     private Model model;
 
-    // Request path: /survey/teams
+    // Request path: /team
     @RequestMapping(value = "")
     public String index(Model model) {
         model.addAttribute("teams", teamDao.findAll());
-        return "survey/teams";
+        return "team/index";
     }
 
-    // Request path: /survey/teams (Post)
+    // Request path: /team (Post)
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String index(@RequestParam("teamIds[]") String teamIds[],
                         Model model) {
@@ -36,6 +36,6 @@ public class TeamListController {
             teamDao.delete(i);
         }
 
-        return "survey/teams";
+        return "team/index";
     }
 }

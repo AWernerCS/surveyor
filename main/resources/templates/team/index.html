@@ -7,7 +7,7 @@
 
 <p th:unless="${teams} and ${teams.size()}">You currently do not have any teams added. Would you like to add one now?</p>
 
-<form action="/survey/addteam/">
+<form action="/team/addteam/">
     <input type="submit" value="Add a Team" /> <br />
 </form>
 
@@ -20,7 +20,7 @@
         </tr>
         <tr th:each="team : ${teams}">
             <td th:text="${team.name}"></td>
-            <!-- <td><p th:each="teamMember : ${teams.teamMembers}" th:text="${teamMember.name}">, </p></td> -->
+            <td><span th:each="teamMember, iterStat : ${team.teamMembers}" th:text="!${iterStat.last} ? ${teamMember.name} + ', ': ${teamMember.name}" /></td>
             <td><input type="checkbox" name="teamIds[]" th:value="${team.id}"/></td>
         </tr>
     </table>
