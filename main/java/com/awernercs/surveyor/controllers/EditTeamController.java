@@ -36,23 +36,20 @@ public class EditTeamController {
         model.addAttribute("allteammembers", teamMemberDao.findAll());
         model.addAttribute("chosenteammembers", holderTeam.getTeamMembers());
 
-        return "team/addteam";
+        return "team/editteam";
     }
 
     // Request path: /team/{team.id} (Post)
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String processAddSurveyForm(@ModelAttribute @Valid Team updateTeam,
+    public String processAddSurveyForm(@PathVariable(value = "paramOne") String paramOne,
                                        @RequestParam("updateteammemberids[]") String updateTeamMemberIds[],
-                                       Errors errors,
                                        Model model) {
 
-        if (errors.hasErrors()) {
-            return "team/addteam";
-        }
+        Team updateTeam = teamDao.findOne(Integer.parseInt(paramOne));
 
         updateTeam.getTeamMembers().clear();
 
-        for (int i = 0; i < teamMemberIds.length; i++){
+        for (int i = 0; i < updateTeamMemberIds.length; i++){
             updateTeam.getTeamMembers().add(teamMemberDao.findOne(Integer.parseInt(updateTeamMemberIds[i])));
         }
 
