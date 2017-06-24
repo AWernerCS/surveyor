@@ -1,5 +1,6 @@
 package com.awernercs.surveyor.controllers;
 
+import com.awernercs.surveyor.models.TeamMember;
 import com.awernercs.surveyor.models.data.TeamMemberDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,13 +29,20 @@ public class TeamMemberListController {
 
     // Request path: /teammember (Post)
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String index(@RequestParam("teamIds[]") String teamIds[],
+    public String index(@RequestParam("teamMemberIds[]") String teamMemberIds[],
                         Model model) {
-        model.addAttribute("teamMembers", teamMemberDao.findAll());
 
-        for (int i = 0; i < teamIds.length; i++){
-            teamMemberDao.delete(i);
+        TeamMember deleteTeamMember;
+
+        for (int i = 0; i < teamMemberIds.length; i++){
+            deleteTeamMember = teamMemberDao.findOne(Integer.parseInt(teamMemberIds[i]));
+            for(int j = 0; j < deleteTeamMember.getTeams().size(); j++){
+                deleteTeamMember.getTeams().get(j).getTeamMembers().remove(deleteTeamMember);
+            }
+            teamMemberDao.delete(Integer.parseInt(teamMemberIds[i]));
         }
+
+        model.addAttribute("teamMembers", teamMemberDao.findAll());
 
         return "teammember/index";
     }

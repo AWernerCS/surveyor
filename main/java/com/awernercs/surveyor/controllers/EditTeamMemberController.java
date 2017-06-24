@@ -41,6 +41,6 @@ public class EditTeamMemberController {
         originalTeamMember.setEmail(updateTeamMember.getEmail());
         teamMemberDao.save(originalTeamMember);
 
-        return "redirect:";
+        return "redirect:/teammember/";
     }
 }

@@ -58,6 +58,6 @@ public class EditTeamController {
 
         teamDao.save(originalTeam);
 
-        return "redirect:";
+        return "redirect:/team/";
     }
 }

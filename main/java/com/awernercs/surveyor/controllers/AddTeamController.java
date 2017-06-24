@@ -52,6 +52,6 @@ public class AddTeamController {
         }
 
         teamDao.save(newTeam);
-        return "redirect:";
+        return "redirect:/team/";
     }
 }

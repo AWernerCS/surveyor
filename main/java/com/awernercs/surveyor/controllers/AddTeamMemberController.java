@@ -41,7 +41,7 @@ public class AddTeamMemberController {
         }
 
         tmDao.save(newTeamMember);
-        return "redirect:";
+        return "redirect:/teammember/";
     }
 
 }
