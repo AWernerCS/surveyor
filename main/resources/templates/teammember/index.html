@@ -7,6 +7,10 @@
 
 <p th:unless="${teamMembers} and ${teamMembers.size()}">You currently do not have any team added. Would you like to add one now?</p><br /><br />
 
+<form action="/teammember/addteammember/">
+    <input type="submit" value="Add a Team Member" /> <br />
+</form> <br />
+
 <form method="post">
     <table class="table">
         <tr>
@@ -16,13 +20,13 @@
             <th>Delete?</th>
         </tr>
         <tr th:each="teamMember : ${teamMembers}">
-            <td th:text="${teamMember.name}"></td>
+            <td><a th:href="@{/teammember/} + ${teamMember.id}" th:text="${teamMember.name}" /></td>
             <td th:text="${teamMember.email}"></td>
-            <td><p th:each="team : ${teamMember.teams}" th:text="${team.name}">, </p></td>
+            <td><span th:each="team, iterStat : ${teamMember.teams}" th:text="!${iterStat.last} ? ${team.name} + ', ': ${team.name}" /></td>
             <td><input type="checkbox" name="teamMemberIds[]" th:value="${teamMember.id}"/></td>
         </tr>
     </table>
-    <input type="submit" value="Archive Records"/>
+    <div align="center"><input type="submit" value="Delete Records"/></div>
 </form>
 
 </body>

@@ -11,11 +11,60 @@
     <script type="text/javascript" src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}" />
 </head>
 <body>
-<nav th:fragment="navigation">
-    <a href="/survey">Home</a>
-    <a href="/survey/addsurvey">Add Survey</a>
-    <a href="/survey/archivedsurveys">Archived Surveys</a>
-    <a href="/team">Manage Teams</a>
+<!-- Navigation menu code from https://bootsnipp.com/snippets/QodP1 -->
+<nav th:fragment="navigation" class="navbar navbar-inverse navbar-static-top marginBottom-0" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/survey">Home</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li class="dropdown hoves"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Surveys<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/survey">Active Survey List</a></li>
+                    <li><a href="/survey/archivedsurveys">Archived Survey List</a></li>
+                    <li><a href="/survey/addsurvey">Add Survey</a></li>
+                </ul>
+            </li>
+            <li class="dropdown hoves"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Teams<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/team">Team List</a></li>
+                    <li><a href="/team/addteam">Add Team</a></li>
+                </ul>
+            </li>
+            <li class="dropdown hoves"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Team Members<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/teammember">Team Member List</a></li>
+                    <li><a href="/teammember/addteammember">Add Team Member</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+
+    <script>
+        $('#dropdown').hover(function() {
+          $(this).AddClass('open');
+        })
+    </script>
+    <script>
+        (function($){
+            $(document).ready(function(){
+                $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    $(this).parent().siblings().removeClass('open');
+                    $(this).parent().toggleClass('open');
+                });
+            });
+        })(jQuery);
+     </script>
+
 </nav>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.awernercs.surveyor.controllers;
 
+import com.awernercs.surveyor.models.Survey;
 import com.awernercs.surveyor.models.Team;
 import com.awernercs.surveyor.models.data.TeamDAO;
 import com.awernercs.surveyor.models.data.TeamMemberDAO;
@@ -43,17 +44,19 @@ public class EditTeamController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String processAddSurveyForm(@PathVariable(value = "paramOne") String paramOne,
                                        @RequestParam("updateteammemberids[]") String updateTeamMemberIds[],
+                                       @ModelAttribute Team updateTeam,
                                        Model model) {
 
-        Team updateTeam = teamDao.findOne(Integer.parseInt(paramOne));
+        Team originalTeam = teamDao.findOne(Integer.parseInt(paramOne));
+        originalTeam.setName(updateTeam.getName());
 
         updateTeam.getTeamMembers().clear();
 
         for (int i = 0; i < updateTeamMemberIds.length; i++){
-            updateTeam.getTeamMembers().add(teamMemberDao.findOne(Integer.parseInt(updateTeamMemberIds[i])));
+            originalTeam.getTeamMembers().add(teamMemberDao.findOne(Integer.parseInt(updateTeamMemberIds[i])));
         }
 
-        teamDao.save(updateTeam);
+        teamDao.save(originalTeam);
 
         return "redirect:";
     }

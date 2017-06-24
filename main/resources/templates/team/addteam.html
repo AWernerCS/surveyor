@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body class="container">
 
@@ -13,6 +13,7 @@
             <span th:errors="*{name}" class="error"></span> <br />
             <label th:for="search">Select Team Members: </label>
         </div>
+        <!-- Beautiful multi-select tiled layout from: https://bootsnipp.com/snippets/featured/multi-select-tiled-layout -->
         <div class="row">
             <div class="form-group">
                 <div class="col-sm-12 col-md-12 col-lg-12">
