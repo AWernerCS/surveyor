@@ -25,4 +25,18 @@ public class Team {
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+
+    public boolean hasTeamMember(int id) {
+
+        boolean hasTeamMemberVar = false;
+
+        for (int i = 0; i < teamMembers.size(); i++){
+            if (teamMembers.get(i).getId() == id){
+                hasTeamMemberVar = true;
+                break;
+            }
+        }
+
+        return hasTeamMemberVar;
+    }
 }
