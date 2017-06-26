@@ -19,7 +19,7 @@
         <div class="row">
             <div class="form-group">
                 <div class="col-sm-12 col-md-12 col-lg-12">
-                    <input type="search" class="form-control" id="search" placeholder="Add your options..." />
+                    <input type="search" class="form-control" id="search" placeholder="Search for team members..." />
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                             <div data-toggle="buttons" class="btn-group bizmoduleselect">
                                 <label class="btn btn-default">
                                     <div class="bizcontent">
-                                        <input type="checkbox" name="teammemberids[]" th:value="${teammember.id}" autocomplete="off" value="" />
+                                        <input type="checkbox" name="teammemberids[]" th:value="${teammember.id}" autocomplete="off" />
                                         <span class="glyphicon glyphicon-ok glyphicon-lg"></span>
                                         <h5 th:text="${teammember.name}"></h5>
                                     </div>

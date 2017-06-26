@@ -26,9 +26,32 @@
     </table>
     <div align="center">
         <a href="/survey/addsurvey" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Add Survey</a>
-        <button type="submit" class="btn btn-primary btn-primary" name="action" value="email"><span class="glyphicon glyphicon-envelope"></span> Email Surveys</button>
-        <button type="submit" class="btn btn-primary btn-danger" name="action" value="archive"><span class="glyphicon glyphicon-trash"></span> Archive Surveys</button>
+        <button type="submit" class="btn btn-primary btn-primary" name="action" value="email" id="checkBtn"><span class="glyphicon glyphicon-envelope"></span> Email Surveys</button>
+        <button type="submit" class="btn btn-primary btn-danger" name="action" value="archive" id="checkBtnTwo"><span class="glyphicon glyphicon-trash"></span> Archive Surveys</button>
     </div>
+
+    <!-- Verify that something is checked before user presses delete/email-->
+    <script type="text/javascript">
+        $(function() {
+            $('#checkBtn').click(function() {
+              checked = $("input[type=checkbox]:checked").length;
+              if(!checked) {
+                alert("You must select at least one survey to email.");
+                return false;
+              }
+
+            });
+            $('#checkBtnTwo').click(function() {
+              checked = $("input[type=checkbox]:checked").length;
+              if(!checked) {
+                alert("You must select at least one survey to archive.");
+                return false;
+              }
+
+            });
+        });
+    </script>
+
 </form>
 
 </body>

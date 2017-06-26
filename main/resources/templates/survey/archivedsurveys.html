@@ -19,8 +19,8 @@
         <td th:text="${survey.question}"></td>
         <td th:text="${survey.dateAdded}"></td>
         <td th:text="${survey.dateArchived}"></td>
-        <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID}}"><p th:text="Vote"></p></a></td>
-        <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID} + '/r'}"><p th:text="Results"></p></a></td>
+        <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID}}" target="_blank"><p th:text="Vote"></p></a></td>
+        <td><a th:href="@{'http://strawpoll.me/' + ${survey.spID} + '/r'}" target="_blank"><p th:text="Results"></p></a></td>
     </tr>
 </table>
 

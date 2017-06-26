@@ -4,10 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
-import org.apache.commons.validator.routines.EmailValidator;
 
 @Entity
 public class TeamMember {
@@ -34,9 +31,4 @@ public class TeamMember {
     public void setEmail(String email) { this.email = email; }
 
     public List<Team> getTeams() { return teams; }
-
-    public Boolean isValidEmail(String email) {
-        boolean valid = EmailValidator.getInstance().isValid(email);
-        return valid;
-    }
 }
