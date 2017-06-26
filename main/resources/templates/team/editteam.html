@@ -5,11 +5,13 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<h3>Edit Team</h3>
+
 <form method="post" style="max-width:600px;" th:object="${team}">
     <div class="container">
         <div class="form-group">
             <label th:for="name">Enter Team Name: </label>
-            <input class="form-control" th:field="*{name}" />
+            <input class="form-control" th:field="*{name}" required="required" />
             <span th:errors="*{name}" class="error"></span> <br />
             <label th:for="search">Select Team Members: </label>
         </div>
@@ -51,7 +53,9 @@
         </div>
 
         <br />
-        <input type="submit" value="Update Team" />
+        <button type="submit" class="btn btn-primary btn-primary" name="action" value="save" id="checkBtn"><span class="glyphicon glyphicon-ok"></span> Save Team</button>
+        <button type="submit" class="btn btn-primary btn-danger" name="action" value="delete"><span class="glyphicon glyphicon-trash"></span> Delete Team</button>
+        <button type="submit" class="btn btn-primary btn-danger" name="action" value="cancel"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
 
     </div>
 
@@ -63,6 +67,15 @@
                 $('.searchable-container .items').filter(function() {
                     return $(this).text().match(new RegExp(pattern, 'i'));
                 }).show();
+            });
+            $('#checkBtn').click(function() {
+              checked = $("input[type=checkbox]:checked").length;
+
+              if(!checked) {
+                alert("You must select at least one team member.");
+                return false;
+              }
+
             });
         });
     </script>

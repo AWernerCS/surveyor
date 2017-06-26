@@ -39,6 +39,7 @@ public class AddSurveyController {
                                        Model model) {
 
         if (errors.hasErrors()) {
+            model.addAttribute(newSurvey);
             return "survey/addsurvey";
         }
 

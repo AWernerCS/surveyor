@@ -5,9 +5,9 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<p th:unless="${surveys} and ${surveys.size()}">There is no data. :(</p>
+<div th:unless="${surveys} and ${surveys.size()}" align="center"><br/><h3>You currently do not have any archived surveys.</h3></div>
 
-<table class="table">
+<table class="table" th:if="${surveys} and ${surveys.size()}">
     <tr>
         <th>Survey Question</th>
         <th>Date Added</th>

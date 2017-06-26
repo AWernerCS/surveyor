@@ -29,22 +29,18 @@ public class TeamListController {
     }
 
     // Request path: /team (Post)
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST, params="action=deleteteams")
     public String index(@RequestParam("teamIds[]") String teamIds[],
                         Model model) {
-
-        Team deleteTeam;
-
-        for (int i = 0; i < teamIds.length; i++){
-            deleteTeam = teamDao.findOne(Integer.parseInt(teamIds[i]));
-            for(int j = 0; j < deleteTeam.getTeamMembers().size(); j++){
-                deleteTeam.getTeamMembers().get(j).getTeams().remove(deleteTeam);
-            }
-            teamDao.delete(Integer.parseInt(teamIds[i]));
-        }
-
+        for (int i = 0; i < teamIds.length; i++){ teamDao.delete(Integer.parseInt(teamIds[i])); }
         model.addAttribute("teams", teamDao.findAll());
-
         return "team/index";
+    }
+
+    // Request path: /teammember (Post)
+    // Add Team Member Button
+    @RequestMapping(value = "", method = RequestMethod.POST, params="action=addteam")
+    public String TeamMemberListAdd(Model model) {
+        return "redirect:/team/addteam";
     }
 }

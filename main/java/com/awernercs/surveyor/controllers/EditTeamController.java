@@ -28,8 +28,8 @@ public class EditTeamController {
 
     // Request path: /team/{team.id} (Get)
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String displayAddTeamForm(@PathVariable(value = "paramOne") String paramOne,
-                                     Model model) {
+    public String displayEditTeamForm(@PathVariable(value = "paramOne") String paramOne,
+                                      Model model) {
 
         Team holderTeam = teamDao.findOne(Integer.parseInt(paramOne));
 
@@ -41,16 +41,16 @@ public class EditTeamController {
     }
 
     // Request path: /team/{team.id} (Post)
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public String processAddSurveyForm(@PathVariable(value = "paramOne") String paramOne,
-                                       @RequestParam("updateteammemberids[]") String updateTeamMemberIds[],
-                                       @ModelAttribute Team updateTeam,
-                                       Model model) {
+    // Save Team/Edit Functionality
+    @RequestMapping(value = "", method = RequestMethod.POST, params="action=save")
+    public String processEditTeamFormSave (@PathVariable(value = "paramOne") String paramOne,
+                                      @RequestParam("updateteammemberids[]") String updateTeamMemberIds[],
+                                      @ModelAttribute Team updateTeam,
+                                      Model model) {
 
         Team originalTeam = teamDao.findOne(Integer.parseInt(paramOne));
         originalTeam.setName(updateTeam.getName());
-
-        updateTeam.getTeamMembers().clear();
+        originalTeam.getTeamMembers().clear();
 
         for (int i = 0; i < updateTeamMemberIds.length; i++){
             originalTeam.getTeamMembers().add(teamMemberDao.findOne(Integer.parseInt(updateTeamMemberIds[i])));
@@ -58,6 +58,21 @@ public class EditTeamController {
 
         teamDao.save(originalTeam);
 
+        return "redirect:/team/";
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST, params="action=delete")
+    public String processEditTeamFormDelete (@PathVariable(value = "paramOne") String paramOne,
+                                      @ModelAttribute Team updateTeam,
+                                      Model model) {
+        teamDao.delete(teamDao.findOne(Integer.parseInt(paramOne)));
+        return "redirect:/team/";
+    }
+
+    // Request path: /team/{team.id} (Post)
+    // Abort/Cancel Functionality (returns to team list)
+    @RequestMapping(value = "", method = RequestMethod.POST, params="action=cancel")
+    public String processEditTeamFormCancel (Model model) {
         return "redirect:/team/";
     }
 }

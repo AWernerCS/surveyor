@@ -5,17 +5,20 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<h3>Add Team Member</h3>
+
 <form method="post" style="max-width:600px;" th:object="${teamMember}">
     <div class="form-group">
         <label th:for="name">Name: </label>
-        <input class="form-control" th:field="*{name}" />
-        <span th:errors="*{name}" class="error"></span> <br /><br />
+        <input class="form-control" th:field="*{name}" required="required" />
+        <span th:errors="*{name}" class="error"></span> <br />
 
         <label th:for="email">Email Address: </label>
-        <input class="form-control" th:field="*{email}" />
-        <span th:errors="*{email}" class="error"></span> <br /><br />
+        <input class="form-control" th:field="*{email}" required="required" type="email" />
+        <span th:errors="*{email}" class="error"></span> <br />
     </div>
-    <input type="submit" value="Add Team Member" />
+    <button type="submit" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Add Survey</button>
+    <a href="/teammember" class="btn btn-primary btn-danger"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
 </form>
 
 </body>

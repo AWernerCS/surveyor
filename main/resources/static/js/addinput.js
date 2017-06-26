@@ -8,7 +8,7 @@ $(document).ready(function() {
         e.preventDefault();
         if(x < max_fields){
             x++;
-            $(wrapper).append('<div><input type="text" name="myTest[]" /><a href="#" class="delete">Delete</a></div>'); //add input box
+            $(wrapper).append('<div><input type="text" name="myTest[]" required="required"/><a href="#" class="delete">Delete</a></div>'); //add input box
         }
   else
   {

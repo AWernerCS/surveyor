@@ -2,30 +2,53 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body class="container">
-
 <nav th:replace="fragments :: navigation"></nav>
 
-<h3>Add Team</h3>
+<font size="5">Send Survey Email</font><br/><br/>
 
 <form method="post" style="max-width:600px;" th:object="${team}">
+    <font size="4">Selected Surveys</font>
+    <ul>
+        <li th:each="survey : ${surveys}"><h5><span th:text="${survey.question}"/></h5></li>
+    </ul><br/>
+
+    <h4>Choose your recipients</h4>
+
+    <!-- Beautiful multi-select tiled layout from: https://bootsnipp.com/snippets/featured/multi-select-tiled-layout -->
+    <!-- Team Select -->
     <div class="container">
-        <div class="form-group">
-            <label th:for="name">Enter Team Name: </label>
-            <input class="form-control" th:field="*{name}" required="required" />
-            <span th:errors="*{name}" class="error"></span> <br />
-            <label th:for="search">Select Team Members: </label>
-        </div>
-        <!-- Beautiful multi-select tiled layout from: https://bootsnipp.com/snippets/featured/multi-select-tiled-layout -->
         <div class="row">
             <div class="form-group">
                 <div class="col-sm-12 col-md-12 col-lg-12">
-                    <input type="search" class="form-control" id="search" placeholder="Add your options..." />
+                    <input type="search" class="form-control" id="search" placeholder="Search for teams or team members..." />
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="form-group">
                 <div class="searchable-container">
+                    <h5>Teams</h5>
+                    <div class="items col-xs-5 col-sm-5 col-md-3 col-lg-3" th:each="team : ${teams}">
+                        <div class="info-block block-info clearfix">
+                            <div data-toggle="buttons" class="btn-group bizmoduleselect">
+                                <label class="btn btn-default">
+                                    <div class="bizcontent">
+                                        <input type="checkbox" name="teamids[]" th:value="${team.id}" autocomplete="off" value="" />
+                                        <span class="glyphicon glyphicon-ok glyphicon-lg"></span>
+                                        <h5 th:text="${team.name}"></h5>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Team Member Select -->
+        <div class="row">
+            <div class="form-group">
+                <div class="searchable-container">
+                    <h5>Team Members</h5>
                     <div class="items col-xs-5 col-sm-5 col-md-3 col-lg-3" th:each="teammember : ${teammembers}">
                         <div class="info-block block-info clearfix">
                             <div data-toggle="buttons" class="btn-group bizmoduleselect">
@@ -42,11 +65,9 @@
                 </div>
             </div>
         </div>
-
-        <br />
-        <button type="submit" class="btn btn-primary btn-success" id="checkBtn"><span class="glyphicon glyphicon-plus"></span> Add Team</button>
-        <a href="/team" class="btn btn-primary btn-danger"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-
+        <br /><br />
+        <a href="mailto:test@test.com" class="btn btn-primary btn-default" target="_blank"><span class="glyphicon glyphicon-envelope"></span> Launch Email Client</a>
+        <a href="/survey" class="btn btn-primary btn-danger"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
     </div>
 
     <script type="text/javascript">
@@ -57,15 +78,6 @@
                 $('.searchable-container .items').filter(function() {
                     return $(this).text().match(new RegExp(pattern, 'i'));
                 }).show();
-            });
-            $('#checkBtn').click(function() {
-              checked = $("input[type=checkbox]:checked").length;
-
-              if(!checked) {
-                alert("You must select at least one team member.");
-                return false;
-              }
-
             });
         });
     </script>

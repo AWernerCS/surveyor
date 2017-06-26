@@ -22,28 +22,25 @@ public class TeamMemberListController {
 
     // Request path: /teammember
     @RequestMapping(value = "")
-    public String index(Model model) {
+    public String TeamMemberList(Model model) {
         model.addAttribute("teamMembers", teamMemberDao.findAll());
         return "teammember/index";
     }
 
     // Request path: /teammember (Post)
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public String index(@RequestParam("teamMemberIds[]") String teamMemberIds[],
+    // Delete Team Members
+    @RequestMapping(value = "", method = RequestMethod.POST, params="action=deleteteammembers")
+    public String TeamMemberListDelete(@RequestParam("teamMemberIds[]") String teamMemberIds[],
                         Model model) {
-
-        TeamMember deleteTeamMember;
-
-        for (int i = 0; i < teamMemberIds.length; i++){
-            deleteTeamMember = teamMemberDao.findOne(Integer.parseInt(teamMemberIds[i]));
-            for(int j = 0; j < deleteTeamMember.getTeams().size(); j++){
-                deleteTeamMember.getTeams().get(j).getTeamMembers().remove(deleteTeamMember);
-            }
-            teamMemberDao.delete(Integer.parseInt(teamMemberIds[i]));
-        }
-
+        for (int i = 0; i < teamMemberIds.length; i++){ teamMemberDao.delete(Integer.parseInt(teamMemberIds[i])); }
         model.addAttribute("teamMembers", teamMemberDao.findAll());
-
         return "teammember/index";
+    }
+
+    // Request path: /teammember (Post)
+    // Add Team Member Button
+    @RequestMapping(value = "", method = RequestMethod.POST, params="action=addteammember")
+    public String TeamMemberListAdd(Model model) {
+        return "redirect:/teammember/addteammember";
     }
 }

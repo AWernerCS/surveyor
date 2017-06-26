@@ -19,7 +19,7 @@ public class Survey {
 
     // 400 = StrawPoll Max Length
     @NotNull
-    @Size(min=1, max=400)
+    @Size(min=2, max=400, message="Your question must be between 2 and 400 characters.")
     @JsonProperty ("title") // Used by Strawpoll
     private String question;
     private Date dateAdded;
@@ -30,15 +30,21 @@ public class Survey {
     private String spID;
 
     // Below properties are all used by Strawpoll
-    // Some values hard-coded for now, more will be added in final version
+    @NotNull
+    @Size(min=2, max=10, message="You should have between 2 and 10 survey options.")
     @JsonProperty("options")
     private String[] spOptions = new String[10];
+
+    // Will be used on the overview page later.
     @JsonProperty("votes")
     private int[] spVotes = new int[10];
+
     @JsonProperty("multi")
     private boolean spMulti = false;
+
     @JsonProperty("dupcheck")
     private String spDupCheck = "";
+
     @JsonProperty("captcha")
     private boolean captcha = false;
 

@@ -5,13 +5,9 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<p th:unless="${teamMembers} and ${teamMembers.size()}">You currently do not have any team added. Would you like to add one now?</p><br /><br />
+<div th:unless="${teamMembers} and ${teamMembers.size()}" align="center"><br/><h3>You currently do not have any team members added.<br/>Would you like to <a href="/teammember/addteammember">add one now</a>?</h3></div>
 
-<form action="/teammember/addteammember/">
-    <input type="submit" value="Add a Team Member" /> <br />
-</form> <br />
-
-<form method="post">
+<form method="post" th:if="${teamMembers} and ${teamMembers.size()}">
     <table class="table">
         <tr>
             <th>Name</th>
@@ -26,7 +22,10 @@
             <td><input type="checkbox" name="teamMemberIds[]" th:value="${teamMember.id}"/></td>
         </tr>
     </table>
-    <div align="center"><input type="submit" value="Delete Records"/></div>
+    <div align="center">
+        <button type="submit" name="action" value="addteammember" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Add Team Member</button>
+        <button type="submit" name="action" value="deleteteammembers" class="btn btn-primary btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete Team Members</button>
+    </div>
 </form>
 
 </body>

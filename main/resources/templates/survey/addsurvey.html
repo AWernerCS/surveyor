@@ -4,32 +4,44 @@
 <body class="container">
 <nav th:replace="fragments :: navigation"></nav>
 
+<h3>Add Survey</h3>
+
 <form method="post" style="max-width:600px;" th:object="${survey}">
     <div class="form-group">
         <label th:for="question">Question: </label>
-        <input class="form-control" th:field="*{question}" />
-        <span th:errors="*{question}" class="error"></span> <br /><br />
+        <input class="form-control" th:field="*{question}" required="required" pattern=".{2,400}" title="Please enter 2 to 400 characters." />
+        <span th:errors="*{question}" class="error"></span> <br />
 
-        <label th:for="spDupCheck">Duplication Checking: </label>
-        <select th:field="*{spDupCheck}" >
-            <option th:value="disabled">None</option>
-            <option th:value="normal">IP-based</option>
-            <option th:value="permissive">Cookie-based</option>
-        </select>
-        <span th:errors="*{spDupCheck}" class="error"></span> <br /><br />
+        <div class="input-group">
+            <label th:for="spDupCheck">Duplication Checking: </label>
+            <select th:field="*{spDupCheck}" class="form-control">
+                <option th:value="disabled">None</option>
+                <option th:value="normal">IP-based</option>
+                <option th:value="permissive">Cookie-based</option>
+            </select>
+            <span th:errors="*{spDupCheck}" class="error"></span>
+        </div><br />
 
-        <label th:for="spMulti">Allow Multiple Answers? </label>
-        <select th:field="*{spMulti}">
-            <option th:value="true">Yes</option>
-            <option th:value="false">No</option>
-        </select><br /><br />
+        <div class="input-group">
+            <label th:for="spMulti">Allow Multiple Answers: </label>
+            <select th:field="*{spMulti}" class="form-control">
+                <option th:value="true">Yes</option>
+                <option th:value="false">No</option>
+            </select>
+        </div><br />
 
         <div class="container1">
-            <div><input type="text" name="myTest[]"/><button class="add_form_field">Add Survey Option</button><br/><input type="text" name="myTest[]" /><button class="donotdelete" disabled="disabled">Delete</button></div>
+            <div>
+                <label th:for="myTest[]">Enter at least two survey options: </label><br />
+                <input type="text" name="myTest[]" required="required"/>
+                <button class="add_form_field">Add Survey Option</button><br/>
+                <input type="text" name="myTest[]" required="required"/>
+                <button class="donotdelete" disabled="disabled">Delete</button>
+            </div>
         </div>
-
     </div>
-    <input type="submit" value="Add Survey" />
+    <button type="submit" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Add Survey</button>
+    <a href="/survey" class="btn btn-primary btn-danger"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
 </form>
 
 </body>

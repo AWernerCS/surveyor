@@ -5,16 +5,16 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<p th:unless="${surveys} and ${surveys.size()}">There is no data. :(</p>
+<div th:unless="${surveys} and ${surveys.size()}" align="center"><br/><h3>You currently do not have any active surveys.<br/>Would you like to <a href="/survey/addsurvey">add one now</a>?</h3></div>
 
-<form method="post">
+<form method="post" th:if="${surveys} and ${surveys.size()}">
     <table class="table">
         <tr>
             <th>Survey Question</th>
             <th>Date Added</th>
             <th>Strawpoll</th>
             <th>Strawpoll</th>
-            <th>Archive</th>
+            <th>Action</th>
         </tr>
         <tr th:each="survey : ${surveys}">
             <td th:text="${survey.question}"></td>
@@ -24,7 +24,11 @@
             <td><input type="checkbox" name="surveyIds[]" th:value="${survey.id}"/></td>
         </tr>
     </table>
-    <div align="center"><input type="submit" value="Archive Records"/></div>
+    <div align="center">
+        <a href="/survey/addsurvey" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Add Survey</a>
+        <button type="submit" class="btn btn-primary btn-primary" name="action" value="email"><span class="glyphicon glyphicon-envelope"></span> Email Surveys</button>
+        <button type="submit" class="btn btn-primary btn-danger" name="action" value="archive"><span class="glyphicon glyphicon-trash"></span> Archive Surveys</button>
+    </div>
 </form>
 
 </body>
