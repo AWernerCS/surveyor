@@ -12,32 +12,28 @@ import java.util.Date;
 
 @Entity
 public class Survey {
+    // This ID
     @Id
     @GeneratedValue
-    @JsonProperty ("ignore")
+    @JsonProperty ("ignore") // This ID is used strictly by Surveyor, StrawPoll's API should ignore it.
     private int id;
 
-    // 400 = StrawPoll Max Length
     @NotNull
-    @Size(min=2, max=400, message="Your question must be between 2 and 400 characters.")
-    @JsonProperty ("title") // Used by Strawpoll
+    @Size(min=2, max=400, message="Your question must be between 2 and 400 characters.") // 400 = StrawPoll's max question length.
+    @JsonProperty ("title") // Used by StrawPoll
     private String question;
     private Date dateAdded;
-    private boolean isArchived;
+    private boolean isArchived = false; // Since StrawPoll's API does not allow deletion, we will archive instead.
     private Date dateArchived;
 
-    @JsonProperty("id") // Used by Strawpoll
+    // Below properties are all used by Strawpoll
+    @JsonProperty("id")
     private String spID;
 
-    // Below properties are all used by Strawpoll
     @NotNull
     @Size(min=2, max=10, message="You should have between 2 and 10 survey options.")
     @JsonProperty("options")
     private String[] spOptions = new String[10];
-
-    // Will be used on the overview page later.
-    @JsonProperty("votes")
-    private int[] spVotes = new int[10];
 
     @JsonProperty("multi")
     private boolean spMulti = false;
@@ -47,6 +43,10 @@ public class Survey {
 
     @JsonProperty("captcha")
     private boolean captcha = false;
+
+    // This property will be used on the overview page at a later time.
+    @JsonProperty("votes")
+    private int[] spVotes = new int[10];
 
     public Survey(String question, String[] spOptions) {
         this.question = question;
@@ -87,7 +87,9 @@ public class Survey {
     public boolean isCaptcha() { return captcha; }
     public void setCaptcha(boolean captcha) { this.captcha = captcha; }
 
+    // Used to create a Strawpoll via strawpoll's REST API.
     public void createStrawpoll() {
+        // Strawpoll's API requires a user-agent and produces an error without one.
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
         headers.add("Content-Type", "application/json");
         headers.add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");

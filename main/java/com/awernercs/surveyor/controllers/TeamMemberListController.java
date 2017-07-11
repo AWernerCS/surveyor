@@ -38,7 +38,7 @@ public class TeamMemberListController {
     }
 
     // Request path: /teammember (Post)
-    // Add Team Member Button
+    // Special button to allow users to easily add a team from the team member list.
     @RequestMapping(value = "", method = RequestMethod.POST, params="action=addteammember")
     public String TeamMemberListAdd(Model model) {
         return "redirect:/teammember/addteammember";

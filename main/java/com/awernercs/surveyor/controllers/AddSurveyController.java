@@ -43,10 +43,8 @@ public class AddSurveyController {
             return "survey/addsurvey";
         }
 
-        newSurvey.setIsArchived(false);
         newSurvey.setDateAdded();
         newSurvey.setSpOptions(surveyOptions);
-
         newSurvey.createStrawpoll();
 
         surveyDao.save(newSurvey);

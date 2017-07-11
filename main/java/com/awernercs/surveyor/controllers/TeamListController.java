@@ -29,6 +29,7 @@ public class TeamListController {
     }
 
     // Request path: /team (Post)
+    // Delete Teams
     @RequestMapping(value = "", method = RequestMethod.POST, params="action=deleteteams")
     public String index(@RequestParam("teamIds[]") String teamIds[],
                         Model model) {
@@ -38,7 +39,7 @@ public class TeamListController {
     }
 
     // Request path: /teammember (Post)
-    // Add Team Member Button
+    // Button to allow users to easily add a team member from the team list.
     @RequestMapping(value = "", method = RequestMethod.POST, params="action=addteam")
     public String TeamMemberListAdd(Model model) {
         return "redirect:/team/addteam";

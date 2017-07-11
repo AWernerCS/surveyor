@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("team/{paramOne}")
+@RequestMapping("team/{paramTeamID}")
 public class EditTeamController {
 
     @Autowired
@@ -28,10 +28,10 @@ public class EditTeamController {
 
     // Request path: /team/{team.id} (Get)
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String displayEditTeamForm(@PathVariable(value = "paramOne") String paramOne,
+    public String displayEditTeamForm(@PathVariable(value = "paramTeamID") String paramTeamID,
                                       Model model) {
 
-        Team holderTeam = teamDao.findOne(Integer.parseInt(paramOne));
+        Team holderTeam = teamDao.findOne(Integer.parseInt(paramTeamID));
 
         model.addAttribute(holderTeam);
         model.addAttribute("allteammembers", teamMemberDao.findAll());
@@ -43,29 +43,31 @@ public class EditTeamController {
     // Request path: /team/{team.id} (Post)
     // Save Team/Edit Functionality
     @RequestMapping(value = "", method = RequestMethod.POST, params="action=save")
-    public String processEditTeamFormSave (@PathVariable(value = "paramOne") String paramOne,
+    public String processEditTeamFormSave (@PathVariable(value = "paramTeamID") String paramTeamID,
                                       @RequestParam("updateteammemberids[]") String updateTeamMemberIds[],
                                       @ModelAttribute Team updateTeam,
                                       Model model) {
 
-        Team originalTeam = teamDao.findOne(Integer.parseInt(paramOne));
-        originalTeam.setName(updateTeam.getName());
-        originalTeam.getTeamMembers().clear();
+        Team originalTeam = teamDao.findOne(Integer.parseInt(paramTeamID)); // Get the unmodified team
+        originalTeam.setName(updateTeam.getName()); // Modify the team's name
+        originalTeam.getTeamMembers().clear(); // Clear the existing members
 
+        // Add the members chosen on the edit screen
         for (int i = 0; i < updateTeamMemberIds.length; i++){
             originalTeam.getTeamMembers().add(teamMemberDao.findOne(Integer.parseInt(updateTeamMemberIds[i])));
         }
 
         teamDao.save(originalTeam);
-
         return "redirect:/team/";
     }
 
+    // Request path: /team/{team.id} (Post)
+    // Delete Team Functionality
     @RequestMapping(value = "", method = RequestMethod.POST, params="action=delete")
-    public String processEditTeamFormDelete (@PathVariable(value = "paramOne") String paramOne,
+    public String processEditTeamFormDelete (@PathVariable(value = "paramTeamID") String paramTeamID,
                                       @ModelAttribute Team updateTeam,
                                       Model model) {
-        teamDao.delete(teamDao.findOne(Integer.parseInt(paramOne)));
+        teamDao.delete(teamDao.findOne(Integer.parseInt(paramTeamID)));
         return "redirect:/team/";
     }
 

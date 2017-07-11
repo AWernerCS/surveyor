@@ -17,7 +17,7 @@ public class TeamMember {
 
     private String email;
 
-    @ManyToMany(mappedBy = "teamMembers")
+    @ManyToMany(mappedBy = "teamMembers") // One team member may have many teams.
     private List<Team> teams;
 
     public TeamMember (){ }

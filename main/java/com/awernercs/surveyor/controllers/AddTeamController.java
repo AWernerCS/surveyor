@@ -21,8 +21,10 @@ public class AddTeamController {
 
     @Autowired
     private TeamDAO teamDao;
+
     @Autowired
     private TeamMemberDAO teamMemberDao;
+
     private String[] teamMemberIds;
     private BindingResult results;
     private Errors errors;
@@ -47,6 +49,7 @@ public class AddTeamController {
             return "team/addteam";
         }
 
+        // Read in the array of chosen team members, add them to the new team.
         for (int i = 0; i < teamMemberIds.length; i++){
             newTeam.getTeamMembers().add(teamMemberDao.findOne(Integer.parseInt(teamMemberIds[i])));
         }

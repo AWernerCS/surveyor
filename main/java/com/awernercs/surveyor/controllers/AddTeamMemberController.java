@@ -23,7 +23,7 @@ public class AddTeamMemberController {
     private Errors errors;
     private Model model;
 
-    // Request path: /teammember/addteammember
+    // Request path: /teammember/addteammember (Get)
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String displayAddTeamMemberForm(Model model) {
         model.addAttribute(new TeamMember());

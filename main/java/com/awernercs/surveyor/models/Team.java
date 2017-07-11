@@ -16,7 +16,7 @@ public class Team {
     @GeneratedValue
     private int id;
 
-    @ManyToMany
+    @ManyToMany // One team may have many team members.
     private List<TeamMember> teamMembers = new ArrayList<>();
 
     private String name;
@@ -28,6 +28,8 @@ public class Team {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
+    // A simple function to check if a team has a certain team member. Useful
+    // for deletion and managing lists.
     public boolean hasTeamMember(int id) {
 
         boolean hasTeamMemberVar = false;

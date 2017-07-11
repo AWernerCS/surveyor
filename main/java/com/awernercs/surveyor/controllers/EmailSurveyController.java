@@ -48,6 +48,10 @@ public class EmailSurveyController {
         return "survey/email";
     }
 
+    /**
+     * The below method is not yet functional. Ultimately it will allow users to email surveys to people listed on
+     * teams or to individual team members.
+     */
     // Request path: /survey/email
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String ProcessEmailSurveyForm(@RequestParam("surveyIds[]") String surveyIds[],

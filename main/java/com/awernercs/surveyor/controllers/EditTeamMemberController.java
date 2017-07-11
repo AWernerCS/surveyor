@@ -36,9 +36,9 @@ public class EditTeamMemberController {
                                        @ModelAttribute TeamMember updateTeamMember,
                                        Model model) {
 
-        TeamMember originalTeamMember = teamMemberDao.findOne(Integer.parseInt(paramOne));
-        originalTeamMember.setName(updateTeamMember.getName());
-        originalTeamMember.setEmail(updateTeamMember.getEmail());
+        TeamMember originalTeamMember = teamMemberDao.findOne(Integer.parseInt(paramOne)); // Get the unmodified team member
+        originalTeamMember.setName(updateTeamMember.getName()); // Update Name
+        originalTeamMember.setEmail(updateTeamMember.getEmail()); // Update Email
         teamMemberDao.save(originalTeamMember);
 
         return "redirect:/teammember/";
